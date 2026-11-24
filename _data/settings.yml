@@ -1,0 +1,11 @@
+# Practice details. Used in the footer, Contact page and site metadata.
+practice_name: Peace Art Therapy
+email: felice@peacearttherapy.com
+phone: (859) 363-5741
+# Leave blank to hide the Book button.
+booking_url: ""
+# Contact form endpoint (Formspree/Basin). Leave blank until the form service is set up.
+form_endpoint: "https://formspree.io/f/mzeryokq"
+# Logos (upload in the editor). Blank shows the practice name as text.
+logo: /assets/img/uploads/logo-horizontal.png
+footer_logo: /assets/img/uploads/logo-round.png

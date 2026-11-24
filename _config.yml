@@ -14,8 +14,8 @@ footer_text: >
   <a href="tel:+18593635741">(859) 363-5741</a>
 keywords: art therapy, Peace Art Therapy
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
-apple_touch_icon: # image name in /assets/img/ (or a rooted path / absolute URL) used for iOS home-screen bookmarks; needs a real 180x180 PNG, since Safari ignores the emoji favicon above. Left empty, iOS falls back to a screenshot of the page.
+icon: favicon.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+apple_touch_icon: favicon.png # image name in /assets/img/ (or a rooted path / absolute URL) used for iOS home-screen bookmarks; needs a real 180x180 PNG, since Safari ignores the emoji favicon above. Left empty, iOS falls back to a screenshot of the page.
 
 url: https://peacearttherapy.com
 baseurl: ""
@@ -94,23 +94,23 @@ al_folio:
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 search_enabled: false
 socials_in_search: true
 posts_in_search: true
 bib_search: true
 
 # Dimensions
-max_width: 930px
+max_width: 1100px
 
 # -----------------------------------------------------------------------------
 # Open Graph & Schema.org
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
 serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+og_image: /assets/img/og-image.png # The site-wide (default for all links) Open Graph preview image
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -134,8 +134,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_name: Peace Art Therapy
+blog_description:
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -196,7 +196,9 @@ newsletter:
 # Collections
 # -----------------------------------------------------------------------------
 
-collections: {}
+collections:
+  services:
+    output: false
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -235,6 +237,7 @@ exclude:
   - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
+  - requirements.txt
   - readme_preview/
   - gems/
   - test/
@@ -353,10 +356,10 @@ scholar:
 # Display different badges withs stats for your publications
 # Customize badge behavior in _layouts/bib.liquid
 enable_publication_badges:
-  altmetric: true # Altmetric badge (Customization options: https://badge-docs.altmetric.com/index.html)
-  dimensions: true # Dimensions badge (Customization options: https://badge.dimensions.ai/)
-  google_scholar: true # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html)
-  inspirehep: true # Inspire HEP badge (https://help.inspirehep.net/knowledge-base/citation-metrics/)
+  altmetric: false # Altmetric badge (Customization options: https://badge-docs.altmetric.com/index.html)
+  dimensions: false # Dimensions badge (Customization options: https://badge.dimensions.ai/)
+  google_scholar: false # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html)
+  inspirehep: false # Inspire HEP badge (https://help.inspirehep.net/knowledge-base/citation-metrics/)
 
 # Filter out certain bibtex entry keywords used internally from the bib output
 filtered_bibtex_keywords:
@@ -445,14 +448,14 @@ lazy_loading_images: true # enables lazy loading of images (recommended)
 enable_google_verification: false # enables google site verification
 enable_bing_verification: false # enables bing site verification
 enable_cookie_consent: false # enables GDPR-compliant cookie consent dialog (https://github.com/orestbida/cookieconsent)
-enable_masonry: true # enables automatic project cards arrangement
+enable_masonry: false # enables automatic project cards arrangement
 enable_math: false # enables math typesetting (uses MathJax)
 enable_tooltips: false # enables automatic tooltip links generated for each section titles on pages and posts
-enable_darkmode: true # enables switching between light/dark modes
+enable_darkmode: false # enables switching between light/dark modes
 enable_navbar_social: false # enables displaying social links in the navbar on the about page
 enable_project_categories: true # enables categorization of projects into multiple categories
-enable_medium_zoom: true # enables image zoom feature (as on medium.com)
-enable_progressbar: true # enables a horizontal progress bar linked to the vertical scroll position
+enable_medium_zoom: false # enables image zoom feature (as on medium.com)
+enable_progressbar: false # enables a horizontal progress bar linked to the vertical scroll position
 enable_video_embedding: false # enables video embedding for bibtex entries. If false, the button opens the video link in a new window.
 
 # -----------------------------------------------------------------------------
@@ -472,18 +475,6 @@ third_party_libraries:
       css: "https://cdn.jsdelivr.net/npm/bootstrap-table@{{version}}/dist/bootstrap-table.min.css"
       js: "https://cdn.jsdelivr.net/npm/bootstrap-table@{{version}}/dist/bootstrap-table.min.js"
     version: "1.22.4"
-  fontawesome:
-    integrity:
-      css: "sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c="
-    url:
-      css: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{version}}/css/all.min.css"
-    version: "7.2.0"
-  academicons:
-    integrity:
-      css: "sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw="
-    url:
-      css: "https://cdn.jsdelivr.net/npm/academicons@{{version}}/css/academicons.min.css"
-    version: "1.9.5"
   chartjs:
     integrity:
       js: "sha256-0q+JdOlScWOHcunpUk21uab1jW7C1deBQARHtKMcaB4="
@@ -516,7 +507,7 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&display=swap"
+      fonts: "/assets/css/fonts.css" # self-hosted Bricolage Grotesque + Atkinson Hyperlegible (no third-party request)
   highlightjs:
     integrity:
       css:
@@ -615,12 +606,6 @@ third_party_libraries:
       css: "https://cdn.jsdelivr.net/npm/pseudocode@{{version}}/build/pseudocode.min.css"
       js: "https://cdn.jsdelivr.net/npm/pseudocode@{{version}}/build/pseudocode.min.js"
     version: "2.4.1"
-  scholar-icons:
-    integrity:
-      css: "sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY="
-    url:
-      css: "https://cdn.jsdelivr.net/npm/scholar-icons@{{version}}/css/scholar-icons.css"
-    version: "1.0.3"
   vanilla-back-to-top:
     integrity:
       js: "sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg="

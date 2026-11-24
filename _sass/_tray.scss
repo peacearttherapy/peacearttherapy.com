@@ -1,0 +1,864 @@
+/*******************************************************************************
+ * Peace Art Therapy: "Paint Tray" components
+ * Enamel tray + rimmed wells (photos) + pigment cakes (buttons, pans).
+ * Colour belongs to the five life stages; everything else is ultramarine + ink.
+ * Mobile first. Tokens come from :root in _practice.scss.
+ ******************************************************************************/
+
+/* ---------- Base: type, paper, browser surfaces ---------- */
+
+body {
+  font-size: 1.1875rem; // 19px
+  line-height: 1.6;
+  scrollbar-color: var(--pat-border) var(--pat-bg);
+  caret-color: var(--pig-ultra);
+}
+::selection {
+  background: var(--pig-gamboge);
+  color: var(--pat-text);
+}
+h1,
+h2,
+h3 {
+  font-family: var(--pat-font-head);
+  color: var(--pig-ultra);
+  text-wrap: balance;
+  letter-spacing: -0.015em;
+}
+p,
+li {
+  text-wrap: pretty;
+}
+a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 0.08em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------- Pigments: one per life stage, full strength ---------- */
+
+.pig-gamboge {
+  --pig: var(--pig-gamboge);
+  --pig-ink: var(--pat-text);
+}
+.pig-rose {
+  --pig: var(--pig-rose);
+  --pig-ink: #ffffff;
+}
+.pig-sap {
+  --pig: var(--pig-sap);
+  --pig-ink: #ffffff;
+}
+.pig-ultra {
+  --pig: var(--pig-ultra);
+  --pig-ink: #ffffff;
+}
+.pig-sienna {
+  --pig: var(--pig-sienna);
+  --pig-ink: #ffffff;
+}
+
+/* ---------- Cakes (buttons): a pressed pan of pigment ---------- */
+
+.cake {
+  --cake: var(--pig-gamboge);
+  --cake-ink: var(--pat-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.55rem 1.25rem 0.7rem;
+  border-radius: 16px;
+  background: var(--cake);
+  color: var(--cake-ink);
+  font-family: var(--pat-font-head);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  text-decoration: none;
+  box-shadow:
+    inset 0 -4px 0 rgba(29, 34, 48, 0.16),
+    0 1px 2px rgba(29, 34, 48, 0.08);
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out),
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out);
+}
+.cake:hover,
+.cake:focus-visible {
+  color: var(--cake-ink);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 -4px 0 rgba(29, 34, 48, 0.16),
+    0 6px 14px rgba(29, 34, 48, 0.14);
+}
+// pressed: the cake inverts
+.cake:active {
+  background: var(--pat-text);
+  color: var(--cake);
+  transform: translateY(0);
+  box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.25);
+}
+.cake-gamboge {
+  --cake: var(--pig-gamboge);
+  --cake-ink: var(--pat-text);
+}
+.cake-ultra {
+  --cake: var(--pig-ultra);
+  --cake-ink: #ffffff;
+  box-shadow:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.28),
+    0 1px 2px rgba(29, 34, 48, 0.08);
+}
+.cake-ultra:active {
+  background: var(--pig-gamboge);
+  color: var(--pat-text);
+}
+.cake-lg {
+  min-height: 56px;
+  padding: 0.7rem 1.6rem 0.85rem;
+  font-size: 1.25rem;
+  border-radius: 18px;
+}
+
+/* ---------- Header ---------- */
+
+body.fixed-top-nav {
+  padding-top: 72px;
+}
+#navbar {
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 2px solid var(--pat-border);
+  min-height: 72px;
+}
+.tray-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.75rem;
+}
+.site-logo {
+  height: 44px;
+}
+.tray-nav .navbar-brand {
+  margin-right: 0;
+  padding: 0;
+}
+.nav-cta {
+  margin-left: auto;
+  min-height: 44px;
+  padding: 0.4rem 1rem 0.55rem;
+  font-size: 1rem;
+}
+.tray-nav .navbar-toggler {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  border: 0;
+}
+.tray-nav .navbar-collapse {
+  flex-basis: 100%;
+}
+#navbar .nav-link {
+  font-family: var(--pat-font-head);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: var(--pat-text);
+  border-bottom: 0;
+  position: relative;
+}
+#navbar .nav-link:hover {
+  color: var(--pig-ultra);
+}
+// current page: a small gamboge pan under the link
+#navbar .nav-item.active .nav-link {
+  color: var(--pig-ultra);
+}
+#navbar .nav-item.active .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.2rem;
+  width: 1.6rem;
+  height: 0.45rem;
+  border-radius: 0.3rem;
+  background: var(--pig-gamboge);
+}
+@media (min-width: 576px) {
+  .site-logo {
+    height: 52px;
+  }
+  .tray-nav {
+    flex-wrap: nowrap;
+  }
+  .tray-nav .navbar-collapse {
+    flex-basis: auto;
+    order: 2;
+  }
+  .nav-cta {
+    order: 3;
+    margin-left: 0.75rem;
+  }
+  #navbar .nav-link {
+    padding: 0.5rem 0.7rem;
+  }
+  #navbar .nav-item.active .nav-link::after {
+    left: 0.7rem;
+    bottom: 0;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .site-logo {
+    height: 40px;
+  }
+  #navbar .nav-link {
+    padding: 0.5rem 0.4rem;
+    font-size: 1rem;
+  }
+  #navbar .nav-item.active .nav-link::after {
+    left: 0.4rem;
+  }
+}
+
+/* ---------- Page frame ---------- */
+
+.tray-page {
+  margin-top: -3rem; // the default layout's .container.mt-5
+}
+.tray-section {
+  padding: 3.5rem 0;
+}
+.tray-section > h2,
+.tray-lid h2 {
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+// full-bleed band in the centred container
+.tray-band,
+.tray-lid {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+}
+@media (min-width: 768px) {
+  .tray-section {
+    padding: 5.5rem 0;
+  }
+  .tray-section > h2 {
+    margin-bottom: 3rem;
+  }
+}
+
+/* ---------- The tray and its wells ---------- */
+
+.tray {
+  background: var(--pat-card);
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow:
+    inset 0 0 0 2px var(--pat-border),
+    var(--pat-shadow);
+}
+.well {
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  background: var(--pat-tint);
+  box-shadow:
+    inset 0 0 0 2px var(--pat-border),
+    inset 0 6px 14px rgba(29, 34, 48, 0.08);
+}
+img.well {
+  box-shadow: 0 0 0 2px var(--pat-border);
+}
+// an empty well, waiting for its photo: a pale ultramarine wash, no colour code
+.well-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem 1rem;
+  background-color: var(--pat-well);
+  color: var(--pig-ultra);
+}
+.well-mark {
+  opacity: 0.7;
+}
+.well-label {
+  font-family: var(--pat-font-head);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--pig-ultra);
+}
+.well-kind {
+  display: block;
+  font-family: var(--pat-font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--pat-muted);
+}
+
+/* ---------- Hero: promise, tray, ruler ---------- */
+
+.tray-hero {
+  display: grid;
+  gap: 1.75rem;
+  padding: 2rem 0 3rem;
+}
+.tray-hero h1 {
+  font-size: clamp(2.375rem, 9.5vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.5rem;
+}
+.tray-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin: 0;
+}
+.tray-phone {
+  font-family: var(--pat-font-head);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--pig-ultra);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.tray-photos {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: 8.5rem 7rem;
+  gap: 10px;
+}
+.tray-photos .well {
+  height: 100%;
+}
+.tray-photos .well-1 {
+  grid-row: span 2;
+}
+
+// the ruler: five identical pans, one per life stage
+.pan-ruler ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+.pan-ruler li {
+  grid-column: span 2;
+}
+.pan-ruler .pan {
+  min-height: 44px;
+  padding: 0.4rem 0.85rem 0.55rem;
+}
+// odd one out sits centred at the same width, never stretched
+.pan-ruler li:last-child:nth-child(odd) {
+  grid-column: 2 / span 2;
+}
+@media (min-width: 640px) {
+  .pan-ruler ul {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .pan-ruler li,
+  .pan-ruler li:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+.pan {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.5rem 0.9rem 0.65rem;
+  border-radius: 14px / 16px;
+  background: var(--pig, var(--pig-gamboge));
+  color: var(--pig-ink, var(--pat-text));
+  font-family: var(--pat-font-head);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 0 2px rgba(0, 0, 0, 0.06);
+}
+a.pan,
+.pan-head {
+  transition:
+    transform 260ms var(--ease-out),
+    box-shadow 260ms var(--ease-out);
+}
+a.pan:hover,
+a.pan:focus-visible {
+  color: var(--pig-ink, var(--pat-text));
+  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.2),
+    0 6px 14px rgba(29, 34, 48, 0.16);
+}
+a.pan:active {
+  background: var(--pat-text);
+  color: #ffffff;
+  transform: translateY(0);
+}
+
+@media (min-width: 900px) {
+  .tray-hero {
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-areas:
+      "text photos"
+      "ruler ruler";
+    column-gap: 3rem;
+    row-gap: 2.5rem;
+    align-items: center;
+    padding: 4rem 0 4.5rem;
+  }
+  .tray-hero-text {
+    grid-area: text;
+  }
+  .tray-photos {
+    grid-area: photos;
+    grid-template-rows: 13rem 11rem;
+  }
+  .pan-ruler {
+    grid-area: ruler;
+  }
+  .tray-hero h1 {
+    margin-bottom: 2rem;
+  }
+}
+
+/* ---------- Services: photo rows alternate; text-only rows sit two up ---------- */
+
+.service-rows {
+  display: grid;
+  gap: 1.25rem;
+}
+.service-row {
+  display: grid;
+  gap: 1.25rem;
+}
+.service-row:not(.service-row--text) {
+  margin-block: 1.75rem;
+}
+// a service without a photo yet: text on enamel, no empty well
+.service-row--text {
+  background: var(--pat-card);
+  border-radius: 22px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  box-shadow: inset 0 0 0 2px var(--pat-border);
+}
+.service-well {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+.service-text h3 {
+  font-size: clamp(1.5rem, 4.5vw, 1.875rem);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.service-text p {
+  max-width: 34rem;
+  margin-bottom: 0.75rem;
+}
+// quiet secondary link: never competes with Start Now
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--pat-font-head);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--pig-ultra);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+.text-link:hover {
+  color: var(--pat-navy-dark);
+  text-decoration-color: var(--pig-gamboge);
+}
+@media (min-width: 768px) {
+  .service-rows {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .service-row:not(.service-row--text) {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  .service-well {
+    aspect-ratio: 4 / 3;
+  }
+  .service-row:not(.service-row--text):nth-child(even) .service-tray {
+    order: 2;
+  }
+  .service-row--text {
+    padding: 2rem 2rem 1.5rem;
+  }
+}
+
+/* ---------- Who we work with: the pan set ---------- */
+
+.tray-band {
+  background: var(--pat-card);
+  border-top: 2px solid var(--pat-border);
+  border-bottom: 2px solid var(--pat-border);
+}
+// 1 up on phones; 2 up, then 3 + 2, every pan the same width
+.pan-set {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (min-width: 640px) {
+  .pan-set {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .pan-set > li {
+    grid-column: span 2;
+  }
+  .pan-set > li:last-child:nth-child(odd) {
+    grid-column: 2 / span 2;
+  }
+}
+@media (min-width: 960px) {
+  .pan-set {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .pan-set > li,
+  .pan-set > li:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+  .pan-set > li:nth-child(4):nth-last-child(2) {
+    grid-column: 2 / span 2;
+  }
+}
+.pan-card {
+  scroll-margin-top: 96px;
+  border-radius: 20px;
+  background: var(--pat-bg);
+  box-shadow: inset 0 0 0 2px var(--pat-border);
+  padding: 10px 10px 1.25rem;
+}
+.pan-head {
+  box-shadow: none;
+  margin: 0 0 1rem;
+  font-size: 1.3125rem;
+  font-weight: 800;
+  min-height: 56px;
+}
+// arriving from the ruler: the pan lifts once, then settles
+@keyframes pan-arrive {
+  0% {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  35% {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(29, 34, 48, 0.18);
+  }
+  100% {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+}
+.pan-card:target .pan-head {
+  animation: pan-arrive 1100ms var(--ease-out) 350ms 1;
+}
+.pan-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+.pan-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.55rem;
+  line-height: 1.45;
+}
+.pan-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 40%;
+  background: var(--pat-muted);
+}
+.band-actions {
+  margin-top: 2.5rem;
+}
+
+/* ---------- Access points: four ways in, one column ---------- */
+
+.ways-in {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+  max-width: 46rem;
+}
+.way {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "pan title"
+    "body body";
+  column-gap: 0.9rem;
+  row-gap: 0.6rem;
+  align-items: center;
+  background: var(--pat-card);
+  border-radius: 22px;
+  padding: 1.25rem 1.25rem 0.5rem;
+  box-shadow: inset 0 0 0 2px var(--pat-border);
+}
+.way-pan {
+  grid-area: pan;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.4rem;
+  border-radius: 12px / 14px;
+  background: var(--pig-ultra);
+  color: #ffffff;
+  font-family: var(--pat-font-head);
+  font-weight: 800;
+  font-size: 1.1875rem;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.28);
+}
+.way h3 {
+  grid-area: title;
+  font-size: 1.3125rem;
+  font-weight: 700;
+  margin: 0;
+}
+.way-body {
+  grid-area: body;
+}
+@media (min-width: 1024px) {
+  .ways-in {
+    grid-template-columns: 1fr 1fr;
+    max-width: none;
+    align-items: start;
+  }
+}
+@media (min-width: 640px) {
+  .way {
+    grid-template-areas:
+      "pan title"
+      ". body";
+    column-gap: 1.25rem;
+    padding: 1.5rem 1.75rem 0.75rem;
+  }
+}
+
+/* ---------- The close: the tray's lid ---------- */
+
+.tray-lid {
+  background: var(--pig-ultra);
+  color: #ffffff;
+}
+.tray-lid-inner {
+  padding: 3.5rem 0 4rem;
+}
+.tray-lid h2 {
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+.lid-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  margin: 0 0 2rem;
+}
+.lid-lines a {
+  color: #ffffff;
+  font-family: var(--pat-font-head);
+  font-weight: 700;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  overflow-wrap: anywhere;
+}
+.lid-lines a:hover {
+  color: var(--pig-gamboge);
+}
+.lid-phone {
+  font-size: clamp(1.75rem, 7vw, 2.5rem);
+}
+.lid-email {
+  font-size: 1.25rem;
+}
+.tray-lid a:focus-visible {
+  outline-color: #ffffff;
+}
+@media (min-width: 768px) {
+  .tray-lid-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 5rem 0 5.5rem;
+  }
+  .lid-lines {
+    margin-bottom: 0;
+  }
+}
+
+/* ---------- Footer: enamel, values line ---------- */
+
+.site-footer,
+.site-footer p,
+.site-footer li {
+  color: var(--pat-text);
+}
+.site-footer {
+  background: var(--pat-card);
+  border-top: 2px solid var(--pat-border);
+  padding: 3rem 0 1.5rem;
+}
+.site-footer a {
+  color: var(--pig-ultra);
+}
+.site-footer a:hover {
+  color: var(--pat-navy-dark);
+}
+.site-footer a:focus-visible {
+  outline-color: var(--pig-ultra);
+}
+.footer-inner {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+.footer-logo {
+  width: 104px;
+  background: transparent;
+  padding: 0;
+}
+.footer-values {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--pat-font-head);
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+.footer-values li {
+  color: var(--pig-ultra);
+  margin-bottom: 0.25rem;
+}
+// footer page links: same voice as the main navigation
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  margin-left: -0.6rem;
+}
+.site-footer .footer-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  font-family: var(--pat-font-head);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: var(--pat-text);
+  text-decoration: none;
+}
+.site-footer .footer-nav a:hover {
+  color: var(--pig-ultra);
+}
+.site-footer .footer-nav a[aria-current="page"] {
+  color: var(--pig-ultra);
+}
+.site-footer .footer-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0.6rem;
+  bottom: 0.15rem;
+  width: 1.6rem;
+  height: 0.45rem;
+  border-radius: 0.3rem;
+  background: var(--pig-gamboge);
+}
+@media (max-width: 575.98px) {
+  .footer-nav ul {
+    gap: 0;
+    margin-left: -0.45rem;
+  }
+  .site-footer .footer-nav a {
+    padding: 0 0.45rem;
+  }
+  .site-footer .footer-nav a[aria-current="page"]::after {
+    left: 0.45rem;
+  }
+}
+.footer-side {
+  display: grid;
+  gap: 1.25rem;
+}
+.footer-legal {
+  border-top: 2px solid var(--pat-border);
+  color: var(--pat-muted);
+}
+@media (min-width: 768px) {
+  .footer-inner {
+    grid-template-columns: auto 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+}
+
+/* ---------- Reduced motion: colour changes only ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .cake,
+  a.pan,
+  .pan-head {
+    transition: none;
+  }
+  .cake:hover,
+  .cake:focus-visible,
+  a.pan:hover,
+  a.pan:focus-visible {
+    transform: none;
+  }
+  .pan-card:target .pan-head {
+    animation: none;
+    box-shadow: 0 0 0 3px var(--pat-text);
+  }
+}

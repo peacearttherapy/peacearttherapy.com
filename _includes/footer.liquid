@@ -1,0 +1,64 @@
+{%- comment -%}
+  Local override of al_folio_core's footer: the practice values line, contact
+  details from _data/settings.yml and the main navigation, on every page.
+{%- endcomment -%}
+{%- assign settings = site.data.settings -%}
+{%- assign about = site.data.about -%}
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      {%- if settings.footer_logo and settings.footer_logo != '' -%}
+        <img
+          src="{{ settings.footer_logo | relative_url }}"
+          alt="{{ settings.practice_name }}"
+          class="footer-logo"
+          width="120"
+          height="119"
+          loading="lazy"
+        >
+      {%- else -%}
+        <p class="footer-name">{{ settings.practice_name }}</p>
+      {%- endif -%}
+    </div>
+    {%- if about.values and about.values.size > 0 -%}
+      <ul class="footer-values" aria-label="{{ about.values_heading | remove: ':' }}">
+        {%- for v in about.values -%}
+          <li>{{ v }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <div class="footer-side">
+      <ul class="footer-contact">
+        <li>
+          Email: <a href="mailto:{{ settings.email }}">{{ settings.email }}</a>
+        </li>
+        <li>
+          <a href="tel:{{ settings.phone | remove: '(' | remove: ')' | remove: ' ' | remove: '-' | prepend: '+1' }}">{{ settings.phone }}</a>
+        </li>
+      </ul>
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          {%- assign nav_pages = site.pages | where: 'nav', true | sort: 'nav_order' -%}
+          {%- for p in nav_pages -%}
+            <li>
+              <a
+                href="{{ p.url | relative_url }}"
+                {% if page.url == p.url %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{- p.title -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="container footer-legal">
+    <p>
+      &copy; {{ site.time | date: '%Y' }}
+      {{ settings.practice_name }}
+    </p>
+  </div>
+</footer>
