@@ -1,0 +1,16 @@
+heading: About Us
+mission_heading: "Mission:"
+mission: Work with adults and children in life transitions using art as a tool for connection and change. Art provides an opportunity to access support and increase self awareness through creativity and contemplation. No artistic experience is necessary.
+vision_heading: "Vision:"
+vision: Support communities in cultivating empathy and cooperation by empowering individuals to access their creative potential through individual and community-based pathways.
+values_heading: "Values:"
+values:
+  - Empower people
+  - Create access to creativity
+  - Art is a tool for change
+# Founder (shown on the About page)
+founder_name_line: Felice Salmon, MA, ATR, LPATA (she/her)
+founder_title: Founder and Director
+founder_role_line: Art Therapist, MA in Art Therapy with an Emphasis in Counseling
+founder_photo: ""
+founder_photo_alt: ""

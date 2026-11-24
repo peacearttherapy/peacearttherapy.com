@@ -1,0 +1,70 @@
+---
+layout: default
+---
+{%- assign home = site.data.home -%}
+{%- assign services = site.services | sort: 'order' -%}
+<div id="main-content" class="practice-page">
+  <section class="band band-hero" aria-labelledby="hero-heading">
+    <div class="hero{% if home.hero_image != '' %} hero-has-image{% endif %}">
+      <div class="hero-text">
+        <h1 id="hero-heading">{{ home.hero_heading }}</h1>
+        <a class="btn btn-primary btn-lg" href="{{ '/contact/' | relative_url }}">{{ home.cta_label }}</a>
+      </div>
+      {%- if home.hero_image != '' -%}
+        <img class="hero-image" src="{{ home.hero_image | relative_url }}" alt="{{ home.hero_image_alt }}">
+      {%- endif -%}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="services-heading">
+    <h2 id="services-heading" class="section-heading">{{ home.services_heading }}</h2>
+    <div class="card-grid card-grid-4">
+      {%- for s in services -%}
+        <article class="practice-card service-card">
+          {%- if s.image != '' -%}
+            <img class="card-image" src="{{ s.image | relative_url }}" alt="{{ s.image_alt }}" loading="lazy">
+          {%- endif -%}
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.card_summary }}</p>
+          <a class="btn btn-outline" href="{{ '/services/' | relative_url }}#{{ s.slug }}" aria-label="Learn More about {{ s.title }}">Learn More</a>
+        </article>
+      {%- endfor -%}
+    </div>
+  </section>
+
+  <section class="band band-tint" aria-labelledby="audiences-heading">
+    <div class="section">
+      <h2 id="audiences-heading" class="section-heading">{{ home.audiences_heading }}</h2>
+      <div class="card-grid card-grid-audiences">
+        {%- for a in site.data.audiences -%}
+          <article class="practice-card audience-card">
+            {%- if a.image and a.image != '' -%}
+              <img class="card-image" src="{{ a.image | relative_url }}" alt="{{ a.image_alt }}" loading="lazy">
+            {%- endif -%}
+            <h3>{{ a.name }}</h3>
+            <ul>
+              {%- for b in a.bullets -%}
+                <li>{{ b }}</li>
+              {%- endfor -%}
+            </ul>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="access-heading">
+    <h2 id="access-heading" class="section-heading">{{ home.access_points_heading }}</h2>
+    <div class="access-list">
+      {%- for item in site.data.access_points -%}
+        <article class="access-item">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.body }}</p>
+          {%- if item.link and item.link != '' -%}
+            <p><a href="{{ item.link }}">{{ item.link_label | default: item.link }}</a></p>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </section>
+</div>

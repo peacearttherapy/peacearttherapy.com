@@ -1,0 +1,32 @@
+- name: Children
+  bullets:
+    - Sensory engagement
+    - Appropriate developmental stimulation
+    - Art exploration
+    - Child-caregiver relationship support
+- name: Adolescents
+  bullets:
+    - Added support for OT & PT goals
+    - Mental health
+    - Social and emotional learning
+    - Neuro-diversity affirming
+- name: Young Adults
+  bullets:
+    - Identity formation
+    - Establishing career goals
+    - Processing life transitions
+    - Support for disability and neurodivergence
+- name: Adults
+  bullets:
+    - Mental health
+    - Grief and loss
+    - Wellbeing & social interaction
+    - Support for chronic health issues & substance use recovery
+    - Reproductive trauma
+    - Post-partum and parental support
+- name: Older Adults
+  bullets:
+    - "Cognitive & emotional support"
+    - Wellbeing in residential communities
+    - Support for chronic health issues
+    - Grief and loss

@@ -1,0 +1,10 @@
+heading: Get in touch with us!
+# Shown above the form. Not from the copy document (PLAN.md section 6); confirm wording with the owner.
+privacy_note: Please don't include personal health details in this form. We'll follow up to talk about your needs.
+name_group_label: Name
+first_name_label: First Name
+last_name_label: Last Name
+email_label: Email
+message_label: Message
+required_label: (required)
+submit_label: Send

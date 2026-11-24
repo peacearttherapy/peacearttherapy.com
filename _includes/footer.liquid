@@ -1,0 +1,31 @@
+{%- comment -%}
+  Local override of al_folio_core's footer: contact details from
+  _data/settings.yml plus the main navigation, on every page.
+{%- endcomment -%}
+{%- assign settings = site.data.settings -%}
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      {%- if settings.footer_logo and settings.footer_logo != '' -%}
+        <img src="{{ settings.footer_logo | relative_url }}" alt="{{ settings.practice_name }}" class="footer-logo" width="160" height="160" loading="lazy">
+      {%- else -%}
+        <p class="footer-name">{{ settings.practice_name }}</p>
+      {%- endif -%}
+    </div>
+    <ul class="footer-contact">
+      <li>Email: <a href="mailto:{{ settings.email }}">{{ settings.email }}</a></li>
+      <li><a href="tel:{{ settings.phone | remove: '(' | remove: ')' | remove: ' ' | remove: '-' | prepend: '+1' }}">{{ settings.phone }}</a></li>
+    </ul>
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        {%- assign nav_pages = site.pages | where: 'nav', true | sort: 'nav_order' -%}
+        {%- for p in nav_pages -%}
+          <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </div>
+  <div class="container footer-legal">
+    <p>&copy; {{ site.time | date: '%Y' }} {{ settings.practice_name }}</p>
+  </div>
+</footer>

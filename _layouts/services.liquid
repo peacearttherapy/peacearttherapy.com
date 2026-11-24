@@ -1,0 +1,30 @@
+---
+layout: default
+---
+{%- assign services = site.services | sort: 'order' -%}
+<div id="main-content" class="practice-page">
+  <header class="page-header">
+    <h1>{{ page.title }}</h1>
+  </header>
+  {%- for s in services -%}
+    <section id="{{ s.slug }}" class="service-detail{% cycle '', ' band band-tint' %}" aria-labelledby="{{ s.slug }}-heading">
+      <div class="service-detail-inner{% if s.image != '' %} has-image{% endif %}">
+        <div class="service-detail-text">
+          <h2 id="{{ s.slug }}-heading">{{ s.title }}</h2>
+          {%- if s.intro != '' -%}
+            <p class="service-intro">{{ s.intro }}</p>
+          {%- endif -%}
+          <ul class="check-list">
+            {%- for b in s.bullets -%}
+              <li>{{ b }}</li>
+            {%- endfor -%}
+          </ul>
+          <a class="btn btn-primary" href="{{ s.cta_link | default: '/contact/' | relative_url }}">{{ s.cta_label }}</a>
+        </div>
+        {%- if s.image != '' -%}
+          <img class="service-image" src="{{ s.image | relative_url }}" alt="{{ s.image_alt }}" loading="lazy">
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endfor -%}
+</div>

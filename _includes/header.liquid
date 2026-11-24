@@ -1,0 +1,49 @@
+{%- comment -%}
+  Local override of al_folio_core's header: practice logo/name and the
+  main navigation (pages with `nav: true`, ordered by `nav_order`).
+  Keeps the core `data-nav-toggle` hook so the mobile menu still works.
+{%- endcomment -%}
+{%- assign settings = site.data.settings -%}
+<header>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <nav id="navbar" class="navbar navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" aria-label="Main">
+    <div class="container">
+      <a class="navbar-brand site-brand" href="{{ '/' | relative_url }}">
+        {%- if settings.logo and settings.logo != '' -%}
+          <img src="{{ settings.logo | relative_url }}" alt="{{ settings.practice_name }}" class="site-logo" width="220" height="56">
+        {%- else -%}
+          {{ settings.practice_name }}
+        {%- endif -%}
+      </a>
+      <button
+        class="navbar-toggler collapsed navbar-toggler-main"
+        type="button"
+        data-nav-toggle="navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          {%- assign nav_pages = site.pages | where: 'nav', true | sort: 'nav_order' -%}
+          {%- for p in nav_pages -%}
+            {%- assign is_current = false -%}
+            {%- if page.url == p.url -%}{%- assign is_current = true -%}{%- endif -%}
+            <li class="nav-item{% if is_current %} active{% endif %}">
+              <a class="nav-link" href="{{ p.url | relative_url }}" {% if is_current %}aria-current="page"{% endif %}>{{ p.title }}</a>
+            </li>
+          {%- endfor -%}
+          {%- if settings.booking_url and settings.booking_url != '' -%}
+            <li class="nav-item">
+              <a class="btn btn-primary nav-book" href="{{ settings.booking_url }}">Book</a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

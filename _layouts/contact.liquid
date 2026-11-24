@@ -1,0 +1,52 @@
+---
+layout: default
+---
+{%- assign c = site.data.contact -%}
+{%- assign settings = site.data.settings -%}
+<div id="main-content" class="practice-page">
+  <header class="page-header">
+    <h1>{{ c.heading }}</h1>
+  </header>
+  <div class="contact-grid">
+    <div class="contact-details">
+      <p class="contact-line"><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
+      <p class="contact-line"><a href="tel:{{ settings.phone | remove: '(' | remove: ')' | remove: ' ' | remove: '-' | prepend: '+1' }}">{{ settings.phone }}</a></p>
+    </div>
+    <div class="contact-form-wrap">
+      {%- if settings.form_endpoint != '' or jekyll.environment != 'production' -%}
+        <p class="form-note">{{ c.privacy_note }}</p>
+        {%- if settings.form_endpoint == '' -%}
+          <p class="dev-note">Preview only: the form isn't connected to a form service yet, so it won't appear on the live site.</p>
+        {%- endif -%}
+        <form class="contact-form" action="{{ settings.form_endpoint }}" method="POST">
+          <fieldset>
+            <legend>{{ c.name_group_label }}</legend>
+            <div class="name-row">
+              <div class="form-field">
+                <label for="first-name">{{ c.first_name_label }} <span class="req">{{ c.required_label }}</span></label>
+                <input id="first-name" name="first_name" type="text" autocomplete="given-name" required>
+              </div>
+              <div class="form-field">
+                <label for="last-name">{{ c.last_name_label }} <span class="req">{{ c.required_label }}</span></label>
+                <input id="last-name" name="last_name" type="text" autocomplete="family-name" required>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-field">
+            <label for="email">{{ c.email_label }} <span class="req">{{ c.required_label }}</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="form-field">
+            <label for="message">{{ c.message_label }} <span class="req">{{ c.required_label }}</span></label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <button class="btn btn-primary" type="submit" {% if settings.form_endpoint == '' %}disabled{% endif %}>{{ c.submit_label }}</button>
+        </form>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
