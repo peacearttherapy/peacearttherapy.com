@@ -3,9 +3,9 @@ layout: default
 ---
 {%- assign faq = site.data.faq -%}
 <div id="main-content" class="practice-page">
-  <header class="page-header">
+  <div class="page-header">
     <h1>{{ faq.heading }}</h1>
-  </header>
+  </div>
   <div class="faq-list">
     {%- for item in faq.questions -%}
       <details class="faq-item">

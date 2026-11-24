@@ -3,9 +3,9 @@ layout: default
 ---
 {%- assign services = site.services | sort: 'order' -%}
 <div id="main-content" class="practice-page">
-  <header class="page-header">
+  <div class="page-header">
     <h1>{{ page.title }}</h1>
-  </header>
+  </div>
   {%- for s in services -%}
     <section id="{{ s.slug }}" class="service-detail{% cycle '', ' band band-tint' %}" aria-labelledby="{{ s.slug }}-heading">
       <div class="service-detail-inner{% if s.image != '' %} has-image{% endif %}">
@@ -19,7 +19,7 @@ layout: default
               <li>{{ b }}</li>
             {%- endfor -%}
           </ul>
-          <a class="btn btn-primary" href="{{ s.cta_link | default: '/contact/' | relative_url }}">{{ s.cta_label }}</a>
+          <a class="btn btn-primary" href="{{ s.cta_link | default: '/contact/' | relative_url }}">{{ s.cta_label }}{% if s.cta_label == 'Learn More' %}<span class="sr-only"> about {{ s.title }}</span>{% endif %}</a>
         </div>
         {%- if s.image != '' -%}
           <img class="service-image" src="{{ s.image | relative_url }}" alt="{{ s.image_alt }}" loading="lazy">

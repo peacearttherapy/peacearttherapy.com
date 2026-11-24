@@ -26,7 +26,7 @@ layout: default
           {%- endif -%}
           <h3>{{ s.title }}</h3>
           <p>{{ s.card_summary }}</p>
-          <a class="btn btn-outline" href="{{ '/services/' | relative_url }}#{{ s.slug }}" aria-label="Learn More about {{ s.title }}">Learn More</a>
+          <a class="btn btn-outline" href="{{ '/services/' | relative_url }}#{{ s.slug }}">Learn More<span class="sr-only"> about {{ s.title }}</span></a>
         </article>
       {%- endfor -%}
     </div>
