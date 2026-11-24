@@ -492,8 +492,9 @@ body > .container[role="main"] {
 }
 .founder-photo {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
+  object-position: 50% 20%;
   border-radius: calc(var(--pat-radius) - 4px);
   margin-bottom: 1.25rem;
 }
@@ -687,8 +688,9 @@ body > .container[role="main"] {
   width: 120px;
   height: auto;
   background: #fff;
-  border-radius: 50%;
-  padding: 6px;
+  border-radius: 16px;
+  padding: 10px;
+  box-sizing: content-box;
 }
 .footer-contact,
 .footer-nav ul {

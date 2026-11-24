@@ -7,5 +7,5 @@ booking_url: ""
 # Contact form endpoint (Formspree/Basin). Leave blank until the form service is set up.
 form_endpoint: ""
 # Logos (upload in the editor). Blank shows the practice name as text.
-logo: ""
-footer_logo: ""
+logo: /assets/img/uploads/logo-horizontal.png
+footer_logo: /assets/img/uploads/logo-round.png
