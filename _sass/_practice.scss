@@ -1,23 +1,33 @@
 /*******************************************************************************
- * Peace Art Therapy: "Calm and clear" theme
- * Palette from the logo: navy spiral + sunflower centre, on warm off-white.
- * All colours are CSS custom properties so they're easy to adjust in one place.
+ * Peace Art Therapy: "Paint Tray" world
+ * A white enamel paint tray on cool cold-press paper. Five pigments only:
+ * ultramarine + gamboge (from the logo), sap green, burnt sienna, rose madder.
+ * Base tokens live here; the tray components live in _tray.scss.
  ******************************************************************************/
 
 :root {
-  --pat-bg: #fbf8f1; // warm off-white page background
-  --pat-tint: #e9effa; // soft sky band
-  --pat-navy: #1f2f8f; // logo navy: headings, buttons, links
-  --pat-navy-dark: #16226b; // hover
-  --pat-yellow: #f2c94c; // decoration only, never text
-  --pat-text: #26262e; // body text
-  --pat-muted: #55586a; // secondary text
-  --pat-card: #ffffff;
-  --pat-border: rgba(31, 47, 143, 0.14);
-  --pat-radius: 16px;
-  --pat-shadow: 0 2px 6px rgba(22, 34, 107, 0.06), 0 8px 24px rgba(22, 34, 107, 0.06);
-  --pat-font-head: "Nunito", system-ui, sans-serif;
-  --pat-font-body: "Source Sans 3", system-ui, sans-serif;
+  --pat-bg: #f4f6f9; // cool cold-press paper
+  --pat-tint: #e9edf3; // paper, one shade deeper
+  --pat-well: #dde4ee; // an empty well: pale ultramarine wash
+  --pat-navy: #22348f; // ultramarine (logo): headings, links, primary buttons
+  --pat-navy-dark: #18266d; // ultramarine, pressed
+  --pat-yellow: #f0bf3a; // gamboge (logo): cakes and marks, never text on paper
+  --pat-text: #1d2230; // ink
+  --pat-muted: #4b5163; // ink, diluted
+  --pat-card: #ffffff; // enamel
+  --pat-border: #dfe3dd; // the tray's molded rim
+  --pat-radius: 22px;
+  --pat-shadow: 0 2px 4px rgba(29, 34, 48, 0.05), 0 10px 24px rgba(29, 34, 48, 0.06);
+  --pat-font-head: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --pat-font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+
+  // pigments (deep = text-safe on white; light = cake colour under ink text)
+  --pig-ultra: #22348f;
+  --pig-gamboge: #f0bf3a;
+  --pig-sap: #4a6b35;
+  --pig-sienna: #9a4f2c;
+  --pig-rose: #a84a5a;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   // al-folio core variables, mapped onto the palette
   --global-bg-color: var(--pat-bg);
@@ -101,45 +111,71 @@ summary:focus-visible {
   color: #fff;
 }
 
-/* ---------- Buttons ---------- */
+/* ---------- Buttons (inner pages): same pigment cake as _tray.scss ---------- */
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
   font-family: var(--pat-font-head);
   font-weight: 700;
-  border-radius: 999px;
-  padding: 0.6rem 1.4rem;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  border: 0;
+  border-radius: 16px;
+  padding: 0.55rem 1.25rem 0.7rem;
   margin: 0;
   text-decoration: none;
   white-space: normal;
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out),
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out);
 }
 .btn-lg {
-  font-size: 1.15rem;
-  padding: 0.8rem 1.8rem;
+  min-height: 56px;
+  font-size: 1.25rem;
+  padding: 0.7rem 1.6rem 0.85rem;
+  border-radius: 18px;
 }
 .btn-primary {
-  background: var(--pat-navy);
-  border: 2px solid var(--pat-navy);
+  background: var(--pig-ultra);
   color: #fff;
+  box-shadow:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.28),
+    0 1px 2px rgba(29, 34, 48, 0.08);
 }
-.btn-primary:hover {
-  background: var(--pat-navy-dark);
-  border-color: var(--pat-navy-dark);
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--pig-ultra);
   color: #fff;
   text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.28),
+    0 6px 14px rgba(29, 34, 48, 0.14);
+}
+.btn-primary:active {
+  background: var(--pig-gamboge) !important;
+  color: var(--pat-text) !important;
+  transform: translateY(0);
+  box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.25) !important;
 }
 .btn-primary:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+  transform: none;
 }
-.btn-outline {
-  background: transparent;
-  border: 2px solid var(--pat-navy);
-  color: var(--pat-navy);
-}
-.btn-outline:hover {
-  background: var(--pat-navy);
-  color: #fff;
-  text-decoration: none;
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  .btn:hover,
+  .btn:focus-visible {
+    transform: none;
+  }
 }
 
 /* ---------- Header ---------- */
@@ -242,168 +278,20 @@ body > .container[role="main"] {
 .section {
   padding: 4rem 0;
 }
-.section-heading {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-.section-heading::after {
-  content: "";
-  display: block;
-  width: 64px;
-  height: 4px;
-  margin: 0.75rem auto 0;
-  border-radius: 2px;
-  background: var(--pat-yellow);
-}
-
 .page-header {
-  text-align: center;
-  padding: 4rem 0 2rem;
+  padding: 3.5rem 0 2rem;
 }
-.page-header h1::after {
-  content: "";
-  display: block;
-  width: 64px;
-  height: 4px;
-  margin: 0.9rem auto 0;
-  border-radius: 2px;
-  background: var(--pat-yellow);
-}
-
-/* ---------- Hero ---------- */
-
-.band-hero {
-  background: linear-gradient(180deg, var(--pat-tint) 0%, var(--pat-bg) 100%);
-}
-.hero {
-  padding: 5rem 0 4.5rem;
-  display: grid;
-  gap: 2.5rem;
-  align-items: center;
-}
-.hero-text {
-  max-width: 44rem;
-  margin: 0 auto;
-  text-align: center;
-}
-.hero h1 {
-  margin-bottom: 1.75rem;
-}
-.hero-has-image {
-  grid-template-columns: 1fr;
-}
-.hero-has-image .hero-text {
-  text-align: left;
+.page-header h1 {
+  font-size: clamp(2.375rem, 8vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   margin: 0;
 }
-.hero-image {
-  width: 100%;
-  border-radius: var(--pat-radius);
-  box-shadow: var(--pat-shadow);
-}
 @media (min-width: 768px) {
-  .hero-has-image {
-    grid-template-columns: 1.1fr 1fr;
+  .page-header {
+    padding: 4.5rem 0 2.5rem;
   }
-}
-
-/* ---------- Cards ---------- */
-
-.card-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 640px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 1024px) {
-  .card-grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-// Audience cards: wrap and centre a short last row
-.card-grid-audiences {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.card-grid-audiences > * {
-  flex: 1 1 100%;
-}
-@media (min-width: 640px) {
-  .card-grid-audiences > * {
-    flex: 0 1 calc(50% - 0.75rem);
-  }
-}
-@media (min-width: 1024px) {
-  .card-grid-audiences > * {
-    flex: 0 1 calc(33.333% - 1rem);
-  }
-}
-
-.practice-card {
-  background: var(--pat-card);
-  border: 1px solid var(--pat-border);
-  border-radius: var(--pat-radius);
-  box-shadow: var(--pat-shadow);
-  padding: 1.75rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-}
-.practice-card h3 {
-  margin-bottom: 0.75rem;
-}
-.practice-card p {
-  color: var(--pat-text);
-}
-.service-card {
-  border-top: 5px solid var(--pat-yellow);
-}
-.service-card .btn {
-  margin-top: auto;
-  align-self: flex-start;
-}
-.card-image {
-  width: calc(100% + 3rem);
-  margin: -1.75rem -1.5rem 1.25rem;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--pat-radius) var(--pat-radius) 0 0;
-}
-.audience-card ul {
-  margin: 0;
-  padding-left: 1.2rem;
-}
-.audience-card li {
-  margin-bottom: 0.35rem;
-}
-.audience-card li::marker {
-  color: var(--pat-navy);
-}
-
-/* ---------- Access points ---------- */
-
-.access-list {
-  display: grid;
-  gap: 1.5rem;
-}
-@media (min-width: 768px) {
-  .access-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-.access-item {
-  border-left: 5px solid var(--pat-yellow);
-  background: var(--pat-card);
-  border-radius: 0 var(--pat-radius) var(--pat-radius) 0;
-  padding: 1.5rem 1.5rem 1rem;
-  box-shadow: var(--pat-shadow);
-}
-.access-item h3 {
-  margin-bottom: 0.5rem;
 }
 
 /* ---------- Services page ---------- */
@@ -412,6 +300,10 @@ body > .container[role="main"] {
   padding-top: 3.5rem;
   padding-bottom: 3.5rem;
   scroll-margin-top: 90px; // keep anchors clear of the fixed header
+}
+// the first service follows the page title directly
+.page-header + .service-detail {
+  padding-top: 0.5rem;
 }
 .service-detail-inner {
   display: grid;
@@ -444,17 +336,16 @@ body > .container[role="main"] {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.55em;
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 50%;
-  background: var(--pat-yellow);
-  box-shadow: 0 0 0 3px rgba(242, 201, 76, 0.3);
+  top: 0.5em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 40%;
+  background: var(--pat-muted);
 }
 .service-image {
   width: 100%;
-  border-radius: var(--pat-radius);
-  box-shadow: var(--pat-shadow);
+  border-radius: 20px;
+  box-shadow: 0 0 0 2px var(--pat-border);
 }
 
 /* ---------- About ---------- */
@@ -485,9 +376,9 @@ body > .container[role="main"] {
 }
 .founder-card {
   background: var(--pat-card);
-  border-radius: var(--pat-radius);
-  box-shadow: var(--pat-shadow);
-  padding: 1.25rem 1.25rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: inset 0 0 0 2px var(--pat-border);
+  padding: 10px 10px 1.5rem;
   text-align: center;
 }
 .founder-photo {
@@ -495,7 +386,7 @@ body > .container[role="main"] {
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 20%;
-  border-radius: calc(var(--pat-radius) - 4px);
+  border-radius: 20px;
   margin-bottom: 1.25rem;
 }
 .founder-photo-placeholder {
@@ -521,14 +412,13 @@ body > .container[role="main"] {
 
 .faq-list {
   max-width: 50rem;
-  margin: 0 auto 2rem;
+  margin: 0 0 3rem;
 }
 .faq-item {
   background: var(--pat-card);
-  border: 1px solid var(--pat-border);
-  border-radius: 12px;
+  border-radius: 20px;
   margin-bottom: 0.9rem;
-  box-shadow: var(--pat-shadow);
+  box-shadow: inset 0 0 0 2px var(--pat-border);
 }
 .faq-item summary {
   list-style: none;
@@ -543,22 +433,33 @@ body > .container[role="main"] {
   font-size: 1.2rem;
   margin: 0;
 }
+// drawn plus / minus (two bars; the upright one folds away when open)
+.faq-item summary::before,
 .faq-item summary::after {
-  content: "+";
+  content: "";
   position: absolute;
-  right: 1.25rem;
+  right: 1.4rem;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--pat-font-head);
-  font-weight: 800;
-  font-size: 1.6rem;
-  color: var(--pat-navy);
+  width: 16px;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 2px;
+  background: var(--pig-ultra);
+}
+.faq-item summary::after {
+  transform: rotate(90deg);
+  transition: transform 220ms var(--ease-out);
 }
 .faq-item[open] summary::after {
-  content: "\2212";
+  transform: rotate(0deg);
 }
 .faq-item[open] summary {
-  border-bottom: 1px solid var(--pat-border);
+  border-bottom: 2px solid var(--pat-border);
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-item summary::after {
+    transition: none;
+  }
 }
 .faq-answer {
   padding: 1.1rem 1.4rem 0.4rem;
@@ -584,8 +485,8 @@ body > .container[role="main"] {
 }
 .contact-form-wrap {
   background: var(--pat-card);
-  border-radius: var(--pat-radius);
-  box-shadow: var(--pat-shadow);
+  border-radius: 22px;
+  box-shadow: inset 0 0 0 2px var(--pat-border);
   padding: 1.75rem;
 }
 .form-note {
@@ -606,6 +507,7 @@ body > .container[role="main"] {
 .contact-form legend {
   font-weight: 600;
   margin-bottom: 0.5rem;
+  padding: 0;
 }
 .name-row {
   display: grid;
@@ -635,9 +537,26 @@ body > .container[role="main"] {
   font: inherit;
   padding: 0.65rem 0.8rem;
   border: 1.5px solid #8b8fa3;
-  border-radius: 10px;
+  border-radius: 14px;
   background: #fff;
   color: var(--pat-text);
+}
+.btn[aria-busy="true"] {
+  cursor: progress;
+  opacity: 0.75;
+}
+// sent state, replaces the form
+.form-thanks h2 {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+.form-thanks p {
+  margin-bottom: 1.5rem;
+}
+.form-thanks:focus {
+  outline: none;
 }
 .hp-field {
   position: absolute;

@@ -8,3 +8,8 @@ email_label: Email
 message_label: Message
 required_label: (required)
 submit_label: Send
+# Shown on the Contact page after the form is sent (approved by Dave, 2026-11-24).
+# A phone number written exactly as in settings.yml becomes a tap-to-call link.
+thanks_heading: Thank you for reaching out.
+thanks_message: We got your message and will be in touch soon. If you'd like to talk sooner, call (859) 363-5741.
+thanks_home_label: Back to the home page

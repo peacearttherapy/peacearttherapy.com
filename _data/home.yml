@@ -5,3 +5,12 @@ cta_label: Start Now
 services_heading: Services
 audiences_heading: Who Do We Work With
 access_points_heading: Access Points for Art Therapy
+# Hero photo tray (three wells). Add a session photo path and a description
+# for each; a blank `src` shows a labelled placeholder.
+hero_photos:
+  - src: ""
+    alt: ""
+  - src: ""
+    alt: ""
+  - src: ""
+    alt: ""
